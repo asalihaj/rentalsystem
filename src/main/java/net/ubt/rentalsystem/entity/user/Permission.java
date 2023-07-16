@@ -4,7 +4,6 @@ package net.ubt.rentalsystem.entity.user;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Set;
 import java.util.UUID;
 
 
@@ -16,7 +15,4 @@ public class Permission {
     private UUID id;
     @Column(nullable = false, unique = true)
     private String name;
-
-    @ManyToMany
-    private Set<Role> roles;
 }

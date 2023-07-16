@@ -6,15 +6,12 @@ import net.ubt.rentalsystem.dto.AuthenticationRequest;
 import net.ubt.rentalsystem.dto.AuthenticationResponse;
 import net.ubt.rentalsystem.dto.RegisterRequest;
 import net.ubt.rentalsystem.entity.user.User;
-import net.ubt.rentalsystem.entity.user.Role;
 import net.ubt.rentalsystem.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,12 +28,7 @@ public class AuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .roles(request.getRoleIds().stream().map(rId -> {
-                    var role = new Role();
-                    role.setId(UUID.fromString(rId));
-
-                    return role;
-                }).collect(Collectors.toSet()))
+                .role(request.getRole())
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

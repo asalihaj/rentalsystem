@@ -1,6 +1,5 @@
 package net.ubt.rentalsystem.entity.user;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,17 +27,22 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private Set<CustomRole> customRoles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.addAll(role.getAuthorities());
-        }
+        var allPermissions = new HashSet<GrantedAuthority>();
+        allPermissions.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
 
-        return authorities;
+        customRoles.stream()
+                .map(CustomRole::getAuthorities)
+                .forEach(allPermissions::addAll);
+
+        return allPermissions;
     }
 
     @Override

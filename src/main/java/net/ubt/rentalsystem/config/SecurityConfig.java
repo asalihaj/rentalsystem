@@ -10,6 +10,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static net.ubt.rentalsystem.entity.user.Role.ADMIN;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .requestMatchers("/api/v1/demo-controller/**")
-                .hasAnyAuthority("CAR_MODULE:VIEW_LIST")
+                .hasAnyRole(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
