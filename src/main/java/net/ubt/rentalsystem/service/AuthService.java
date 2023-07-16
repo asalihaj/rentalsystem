@@ -13,6 +13,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -28,7 +31,12 @@ public class AuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .roles(request.getRoleIds().stream().map(rId -> {
+                    var role = new Role();
+                    role.setId(UUID.fromString(rId));
+
+                    return role;
+                }).collect(Collectors.toSet()))
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);

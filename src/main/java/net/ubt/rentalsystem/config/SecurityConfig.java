@@ -25,6 +25,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
+                .requestMatchers("/api/v1/demo-controller/**")
+                .hasAnyAuthority("CAR_MODULE:VIEW_LIST")
                 .anyRequest()
                 .authenticated()
                 .and()
