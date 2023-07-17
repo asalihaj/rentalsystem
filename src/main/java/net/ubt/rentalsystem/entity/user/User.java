@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.OffsetDateTime;
 import java.util.*;
 
 @Data
@@ -21,11 +22,20 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "uuid2")
     private UUID id;
+    @Column
     private String firstName;
+    @Column
     private String lastName;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private OffsetDateTime createdAt;
+    @Column(nullable = false)
+    private OffsetDateTime lastUpdate;
 
     @Enumerated(EnumType.STRING)
     private Role role;
