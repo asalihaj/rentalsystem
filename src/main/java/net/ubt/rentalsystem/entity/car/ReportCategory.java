@@ -1,4 +1,4 @@
-package net.ubt.rentalsystem.entity.user;
+package net.ubt.rentalsystem.entity.car;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,18 +8,15 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "company")
-public class Company {
+@Table(name = "report_category")
+public class ReportCategory {
     @Id
     @GeneratedValue(generator = "uuid2")
     private UUID id;
     @Column(nullable = false)
-    private String phoneNumber;
+    private String name;
+    @Column
+    private String description;
     @Column(nullable = false)
     private OffsetDateTime createdAt;
-    @Column(nullable = false)
-    private OffsetDateTime lastUpdate;
-
-    @OneToOne
-    private User user;
 }
