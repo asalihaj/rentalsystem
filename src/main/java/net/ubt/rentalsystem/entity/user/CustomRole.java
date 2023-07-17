@@ -20,15 +20,13 @@ public class CustomRole {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Permission> permissions;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
-        var authorities = permissions
+        return permissions
                 .stream()
                 .map(permission -> new SimpleGrantedAuthority(permission.getName()))
                 .collect(Collectors.toList());
-
-        return authorities;
     }
 }
