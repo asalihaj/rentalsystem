@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -21,4 +22,6 @@ public class Model {
     @ManyToOne
     @JoinColumn(name = "brand_id", nullable = false)
     private Brand brand;
+    @OneToMany(mappedBy = "model")
+    private Set<Car> cars;
 }

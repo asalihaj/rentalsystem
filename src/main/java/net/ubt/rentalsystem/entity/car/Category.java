@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -19,4 +20,7 @@ public class Category {
     private String description;
     @Column(nullable = false)
     private OffsetDateTime createdAt;
+
+    @OneToMany(mappedBy = "category")
+    private Set<Car> cars;
 }

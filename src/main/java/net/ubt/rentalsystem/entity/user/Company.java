@@ -2,8 +2,10 @@ package net.ubt.rentalsystem.entity.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import net.ubt.rentalsystem.entity.car.Equipment;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -22,4 +24,6 @@ public class Company {
 
     @OneToOne
     private User user;
+    @OneToMany(mappedBy = "company")
+    private Set<Equipment> equipments;
 }

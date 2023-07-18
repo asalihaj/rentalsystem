@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -19,4 +20,7 @@ public class Color {
     private String hexCode;
     @Column(nullable = false)
     private OffsetDateTime createdAt;
+
+    @OneToMany(mappedBy = "color")
+    private Set<Car> cars;
 }
