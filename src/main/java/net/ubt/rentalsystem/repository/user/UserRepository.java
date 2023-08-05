@@ -1,4 +1,4 @@
-package net.ubt.rentalsystem.repository;
+package net.ubt.rentalsystem.repository.user;
 
 import net.ubt.rentalsystem.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
