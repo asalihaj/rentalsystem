@@ -1,7 +1,7 @@
 package net.ubt.rentalsystem.config;
 
 import lombok.RequiredArgsConstructor;
-import net.ubt.rentalsystem.repository.UserRepository;
+import net.ubt.rentalsystem.repository.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -2,11 +2,11 @@ package net.ubt.rentalsystem.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import net.ubt.rentalsystem.config.JwtService;
-import net.ubt.rentalsystem.dto.AuthenticationResponse;
-import net.ubt.rentalsystem.dto.RegisterRequest;
+import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
+import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
 import net.ubt.rentalsystem.entity.user.User;
-import net.ubt.rentalsystem.repository.UserRepository;
+import net.ubt.rentalsystem.repository.user.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

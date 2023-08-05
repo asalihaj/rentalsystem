@@ -1,8 +1,8 @@
 package net.ubt.rentalsystem.controller;
 
 import lombok.RequiredArgsConstructor;
-import net.ubt.rentalsystem.dto.AuthenticationResponse;
-import net.ubt.rentalsystem.dto.RegisterRequest;
+import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
+import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
 import net.ubt.rentalsystem.service.auth.AuthService;
 import org.springframework.http.ResponseEntity;
