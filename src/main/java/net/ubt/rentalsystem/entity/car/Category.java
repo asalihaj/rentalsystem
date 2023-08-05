@@ -1,26 +1,24 @@
 package net.ubt.rentalsystem.entity.car;
 
-import jakarta.persistence.*;
-import lombok.Data;
+public enum Category {
+    SUV("SUV"),
+    COUPE("Coupe"),
+    HATCHBACK("Hatchback"),
+    MINIVAN("Minivan"),
+    SEDAN("Sedan"),
+    SPORT("Sport"),
+    VAN("Van"),
+    EV("Electric vehicle"),
+    LIMOUSINE("Limousine");
 
-import java.time.OffsetDateTime;
-import java.util.Set;
-import java.util.UUID;
+    private String category;
 
-@Data
-@Entity
-@Table(name= "category")
-public class Category {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    private UUID id;
-    @Column(nullable = false)
-    private String name;
-    @Column(nullable = false)
-    private String description;
-    @Column(nullable = false)
-    private OffsetDateTime createdAt;
+    Category(String category) {
+        this.category = category;
+    }
 
-    @OneToMany(mappedBy = "category")
-    private Set<Car> cars;
+    public String getCategory() {
+        return category;
+    }
+
 }

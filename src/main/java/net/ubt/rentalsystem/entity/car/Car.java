@@ -31,24 +31,22 @@ public class Car {
     @Column(nullable = false)
     private OffsetDateTime lastUpdate;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    @Enumerated(EnumType.STRING)
+    private Category category;
+    @Enumerated(EnumType.STRING)
+    private FuelType fuelType;
+
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
-    @ManyToOne
     @JoinColumn(name = "model_id", nullable = false)
     private Model model;
     @ManyToOne
-    @JoinColumn(name = "status_id", nullable = false)
-    private Status status;
-    @ManyToOne
     @JoinColumn(name = "color_id", nullable = false)
     private Color color;
-    @ManyToOne
-    @JoinColumn(name = "fuel_type_id", nullable = false)
-    private FuelType fuelType;
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
