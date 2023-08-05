@@ -1,10 +1,10 @@
-package net.ubt.rentalsystem.service;
+package net.ubt.rentalsystem.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import net.ubt.rentalsystem.config.JwtService;
-import net.ubt.rentalsystem.dto.AuthenticationRequest;
 import net.ubt.rentalsystem.dto.AuthenticationResponse;
 import net.ubt.rentalsystem.dto.RegisterRequest;
+import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
 import net.ubt.rentalsystem.entity.user.User;
 import net.ubt.rentalsystem.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,7 +24,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .username(request.getUsername())
@@ -35,7 +35,7 @@ public class AuthService {
                 .lastUpdate(OffsetDateTime.now())
                 .build();
         userRepository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse
                 .builder()
@@ -50,8 +50,8 @@ public class AuthService {
                     request.getPassword()
             )
         );
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        String jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse
                 .builder()
