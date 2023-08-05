@@ -26,4 +26,8 @@ public class Company {
     private User user;
     @OneToMany(mappedBy = "company")
     private Set<Equipment> equipments;
+    @OneToMany(mappedBy = "company")
+    private Set<SocialMedia> socialMedias;
+    @OneToMany(mappedBy = "company")
+    private Set<Employee> employees;
 }
