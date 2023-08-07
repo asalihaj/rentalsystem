@@ -45,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        var allPermissions = new HashSet<GrantedAuthority>();
+        HashSet<GrantedAuthority> allPermissions = new HashSet<GrantedAuthority>();
         allPermissions.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
 
         customRoles.stream()
