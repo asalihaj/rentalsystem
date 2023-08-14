@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import net.ubt.rentalsystem.dto.car.CarBaseDto;
 import net.ubt.rentalsystem.dto.car.CarOfferDto;
 import net.ubt.rentalsystem.dto.car.CreateCarDto;
+import net.ubt.rentalsystem.dto.car.UpdateCarDto;
 import net.ubt.rentalsystem.entity.car.Car;
+import net.ubt.rentalsystem.entity.car.Color;
 import net.ubt.rentalsystem.entity.car.Status;
 import net.ubt.rentalsystem.mapper.car.CarMapper;
 import net.ubt.rentalsystem.repository.car.CarRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,5 +54,22 @@ public class CarService {
     public void createCar(CreateCarDto createCarDto) {
         Car car = carMapper.createCarDtoToCar(createCarDto);
         carRepository.save(car);
+    }
+
+    public void updateCarData(UUID carId, UpdateCarDto updateCarDto) {
+        Car car = carRepository.findById(carId).orElseThrow();
+        Color color = new Color();
+        color.setId(updateCarDto.getColorId());
+
+        car.setColor(color);
+        car.setRentalRate(updateCarDto.getRentalRate());
+        car.setPlateNumber(updateCarDto.getPlateNumber());
+
+        carRepository.save(car);
+    }
+
+    public void deleteCar(UUID carId) {
+        carRepository.findById(carId).orElseThrow(() -> new RuntimeException("Car not found"));
+        carRepository.deleteById(carId);
     }
 }

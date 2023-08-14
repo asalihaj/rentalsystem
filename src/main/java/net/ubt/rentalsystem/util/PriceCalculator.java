@@ -4,19 +4,20 @@ import lombok.RequiredArgsConstructor;
 import net.ubt.rentalsystem.entity.car.Car;
 import net.ubt.rentalsystem.entity.car.Period;
 import net.ubt.rentalsystem.entity.car.Season;
+import net.ubt.rentalsystem.repository.car.PeriodRepository;
 import net.ubt.rentalsystem.repository.car.SeasonRepository;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.OffsetDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class PriceCalculator {
     private final SeasonRepository seasonRepository;
-
+    private final PeriodRepository periodRepository;
     public BigDecimal calculateTotalAmount(Car car, OffsetDateTime rentalDate, OffsetDateTime returnDate) {
         int totalDays = getTotalDays(rentalDate, returnDate);
         car.setRentalRate(getChange(car, rentalDate, returnDate));
@@ -25,7 +26,7 @@ public class PriceCalculator {
 
     private BigDecimal getChange(Car car, OffsetDateTime rentalDate, OffsetDateTime returnDate) {
         BigDecimal seasonChange = getSeasonChange(car, rentalDate, returnDate);
-        Set<Period> periods = car.getGroup().getPeriods();
+        List<Period> periods = periodRepository.findAll();
         int totalDays = getTotalDays(rentalDate, returnDate);
         return getPeriodChange(periods, seasonChange, totalDays);
     }
@@ -47,7 +48,7 @@ public class PriceCalculator {
         return calculatePriceValue(car.getRentalRate(), season.getChangeValue(), season.getIsFixed());
     }
 
-    private BigDecimal getPeriodChange(Set<Period> periods, BigDecimal rentalRate, int totalDays) {
+    private BigDecimal getPeriodChange(List<Period> periods, BigDecimal rentalRate, int totalDays) {
         Period period = getPeriod(periods, totalDays);
         if (period != null) {
             return calculatePriceValue(rentalRate, period.getPriceChange(), period.getIsFixed());
@@ -55,7 +56,7 @@ public class PriceCalculator {
         return rentalRate;
     }
 
-    private Period getPeriod(Set<Period> periods, int totalDays) {
+    private Period getPeriod(List<Period> periods, int totalDays) {
         Period period = null;
         for (Period p : periods) {
             int startDay = p.getStartDay();
