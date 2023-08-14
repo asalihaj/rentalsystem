@@ -1,7 +1,6 @@
 package net.ubt.rentalsystem.dto.car;
 
 import lombok.Data;
-import net.ubt.rentalsystem.dto.IdDto;
 import net.ubt.rentalsystem.entity.car.Category;
 import net.ubt.rentalsystem.entity.car.FuelType;
 import net.ubt.rentalsystem.entity.car.Status;
@@ -24,6 +23,6 @@ public class CreateCarDto {
     private UUID modelId;
     private UUID colorId;
     private UUID groupId;
-    private Set<IdDto> utilities;
-    private Set<IdDto> insurances;
+    private Set<UUID> utilities;
+    private Set<UUID> insurances;
 }
