@@ -1,10 +1,7 @@
 package net.ubt.rentalsystem.controller.car;
 
 import lombok.RequiredArgsConstructor;
-import net.ubt.rentalsystem.dto.car.CarBaseDto;
-import net.ubt.rentalsystem.dto.car.CarOfferDto;
-import net.ubt.rentalsystem.dto.car.CreateCarDto;
-import net.ubt.rentalsystem.dto.car.UpdateCarDto;
+import net.ubt.rentalsystem.dto.car.*;
 import net.ubt.rentalsystem.service.car.CarService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +24,11 @@ public class CarController {
     @GetMapping("/available")
     public List<CarOfferDto> getAllAvailableCars() {
         return carService.getAvailableCars();
+    }
+
+    @GetMapping("/{id}/details")
+    public CarOfferDetailsDto getCarOfferDetails(@PathVariable UUID id) {
+        return carService.getCarOfferDetails(id);
     }
 
     @PostMapping

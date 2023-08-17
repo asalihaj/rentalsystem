@@ -1,10 +1,7 @@
 package net.ubt.rentalsystem.service.car;
 
 import lombok.RequiredArgsConstructor;
-import net.ubt.rentalsystem.dto.car.CarBaseDto;
-import net.ubt.rentalsystem.dto.car.CarOfferDto;
-import net.ubt.rentalsystem.dto.car.CreateCarDto;
-import net.ubt.rentalsystem.dto.car.UpdateCarDto;
+import net.ubt.rentalsystem.dto.car.*;
 import net.ubt.rentalsystem.entity.car.Car;
 import net.ubt.rentalsystem.entity.car.Color;
 import net.ubt.rentalsystem.entity.car.Status;
@@ -13,6 +10,7 @@ import net.ubt.rentalsystem.repository.car.CarRepository;
 import net.ubt.rentalsystem.util.PriceCalculator;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -49,6 +47,20 @@ public class CarService {
                     return carOffer;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public CarOfferDetailsDto getCarOfferDetails(UUID carId) {
+        Car carData = carRepository.findById(carId).orElseThrow();
+
+        CarOfferDetailsDto carOffer = carMapper.toOfferDetailsDto(carData);
+        BigDecimal price = priceCalculator.calculateTotalAmount(
+                carData,
+                OffsetDateTime.now(),
+                OffsetDateTime.now().plus(5, ChronoUnit.DAYS)
+        );
+        carOffer.setPrice(price);
+
+        return carOffer;
     }
 
     public void createCar(CreateCarDto createCarDto) {
