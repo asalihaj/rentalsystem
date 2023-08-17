@@ -1,4 +1,4 @@
-package net.ubt.rentalsystem.controller;
+package net.ubt.rentalsystem.controller.auth;
 
 import lombok.RequiredArgsConstructor;
 import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
