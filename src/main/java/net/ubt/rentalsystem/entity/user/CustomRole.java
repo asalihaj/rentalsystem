@@ -1,6 +1,8 @@
 package net.ubt.rentalsystem.entity.user;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.OffsetDateTime;
@@ -10,6 +12,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
+@Table(name = "custom_role")
+@Data
+@RequiredArgsConstructor
 public class CustomRole {
     @Id
     @GeneratedValue(generator = "uuid2")
