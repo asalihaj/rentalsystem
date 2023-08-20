@@ -5,7 +5,6 @@ import net.ubt.rentalsystem.dto.user.RegisterCompanyDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-
 @Mapper(componentModel = "spring",
         unmappedSourcePolicy = ReportingPolicy.WARN
 )
