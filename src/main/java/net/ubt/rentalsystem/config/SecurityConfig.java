@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .permitAll()
                 .requestMatchers("/api/v1/car/**")
                 .permitAll()
+                .requestMatchers("/api/v1/company/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

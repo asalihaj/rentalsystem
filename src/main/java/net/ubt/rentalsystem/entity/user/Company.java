@@ -3,6 +3,7 @@ package net.ubt.rentalsystem.entity.user;
 import jakarta.persistence.*;
 import lombok.Data;
 import net.ubt.rentalsystem.entity.car.Equipment;
+import net.ubt.rentalsystem.entity.location.Address;
 
 import java.time.OffsetDateTime;
 import java.util.Set;
