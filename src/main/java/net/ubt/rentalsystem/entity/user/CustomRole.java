@@ -1,6 +1,7 @@
 package net.ubt.rentalsystem.entity.user;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.OffsetDateTime;
@@ -9,6 +10,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Data
 @Entity
 public class CustomRole {
     @Id

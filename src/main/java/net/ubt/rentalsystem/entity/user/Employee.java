@@ -11,6 +11,7 @@ import java.util.UUID;
 @Table(name = "employee")
 public class Employee {
     @Id
+    @GeneratedValue(generator = "uuid2")
     private UUID id;
     @Column(nullable = false)
     private OffsetDateTime createdAt;

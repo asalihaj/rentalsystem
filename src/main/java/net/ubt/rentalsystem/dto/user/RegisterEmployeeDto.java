@@ -6,6 +6,5 @@ import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RegisterCompanyDto extends RegisterRequest {
-    private String phoneNumber;
+public class RegisterEmployeeDto extends RegisterRequest {
 }

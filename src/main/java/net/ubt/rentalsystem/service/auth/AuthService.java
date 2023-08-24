@@ -5,7 +5,12 @@ import net.ubt.rentalsystem.config.JwtService;
 import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
 import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
+import net.ubt.rentalsystem.entity.user.Company;
+import net.ubt.rentalsystem.entity.user.Employee;
+import net.ubt.rentalsystem.entity.user.Role;
 import net.ubt.rentalsystem.entity.user.User;
+import net.ubt.rentalsystem.repository.user.CompanyRepository;
+import net.ubt.rentalsystem.repository.user.EmployeeRepository;
 import net.ubt.rentalsystem.repository.user.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,17 +18,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
+    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public void register(RegisterRequest request) {
         User user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -35,12 +44,6 @@ public class AuthService {
                 .lastUpdate(OffsetDateTime.now())
                 .build();
         userRepository.save(user);
-        String jwtToken = jwtService.generateToken(user);
-
-        return AuthenticationResponse
-                .builder()
-                .token(jwtToken)
-                .build();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -51,7 +54,17 @@ public class AuthService {
             )
         );
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        String jwtToken = jwtService.generateToken(user);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", user.getId());
+
+        if (user.getRole().equals(Role.COMPANY)) {
+            Company company = companyRepository.findCompanyByUser(user).orElseThrow();
+            claims.put("companyId", company.getId());
+        } else if (user.getRole().equals(Role.EMPLOYEE)) {
+            Employee employee = employeeRepository.findEmployeeByAppUser(user).orElseThrow();
+            claims.put("companyId", employee.getCompany().getId());
+        }
+        String jwtToken = jwtService.generateToken(claims, user);
 
         return AuthenticationResponse
                 .builder()

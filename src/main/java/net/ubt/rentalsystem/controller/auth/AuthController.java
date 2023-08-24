@@ -5,6 +5,7 @@ import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
 import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
 import net.ubt.rentalsystem.service.auth.AuthService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +19,9 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-        return ResponseEntity.ok(authService.register(request));
+    public ResponseEntity<HttpStatus> register(@RequestBody RegisterRequest request) {
+        authService.register(request);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/login")
