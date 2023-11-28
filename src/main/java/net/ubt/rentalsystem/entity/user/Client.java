@@ -35,8 +35,8 @@ public class Client {
     @OneToOne(mappedBy = "client")
     private UserClient userClient;
 
-    private enum Gender {
+    public enum Gender {
         MALE,
-        FEMALE;
+        FEMALE
     }
 }

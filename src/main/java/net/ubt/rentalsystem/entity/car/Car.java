@@ -37,6 +37,8 @@ public class Car {
     private Category category;
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
+    @Enumerated(EnumType.STRING)
+    private Transmission transmission;
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)

@@ -21,6 +21,13 @@ public class CarController {
         return carService.getAllCars();
     }
 
+    @GetMapping("/calendar")
+    public ResponseEntity<List<CarCalendarDto>> getAllCalendarCars() {
+        List<CarCalendarDto> cars = carService.getCalendarCarList();
+
+        return new ResponseEntity<>(cars, HttpStatus.OK);
+    }
+
     @GetMapping("/available")
     public List<CarOfferDto> getAllAvailableCars() {
         return carService.getAvailableCars();

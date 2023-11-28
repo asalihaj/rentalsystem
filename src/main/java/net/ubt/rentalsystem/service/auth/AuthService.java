@@ -5,9 +5,6 @@ import net.ubt.rentalsystem.config.JwtService;
 import net.ubt.rentalsystem.dto.auth.AuthenticationResponse;
 import net.ubt.rentalsystem.dto.auth.RegisterRequest;
 import net.ubt.rentalsystem.dto.auth.AuthenticationRequest;
-import net.ubt.rentalsystem.entity.user.Company;
-import net.ubt.rentalsystem.entity.user.Employee;
-import net.ubt.rentalsystem.entity.user.Role;
 import net.ubt.rentalsystem.entity.user.User;
 import net.ubt.rentalsystem.repository.user.CompanyRepository;
 import net.ubt.rentalsystem.repository.user.EmployeeRepository;
@@ -26,8 +23,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
-    private final CompanyRepository companyRepository;
-    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -57,13 +52,6 @@ public class AuthService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
 
-        if (user.getRole().equals(Role.COMPANY)) {
-            Company company = companyRepository.findCompanyByUser(user).orElseThrow();
-            claims.put("companyId", company.getId());
-        } else if (user.getRole().equals(Role.EMPLOYEE)) {
-            Employee employee = employeeRepository.findEmployeeByAppUser(user).orElseThrow();
-            claims.put("companyId", employee.getCompany().getId());
-        }
         String jwtToken = jwtService.generateToken(claims, user);
 
         return AuthenticationResponse

@@ -1,9 +1,6 @@
 package net.ubt.rentalsystem.mapper.car;
 
-import net.ubt.rentalsystem.dto.car.CarBaseDto;
-import net.ubt.rentalsystem.dto.car.CarOfferDetailsDto;
-import net.ubt.rentalsystem.dto.car.CarOfferDto;
-import net.ubt.rentalsystem.dto.car.CreateCarDto;
+import net.ubt.rentalsystem.dto.car.*;
 import net.ubt.rentalsystem.entity.car.Car;
 import net.ubt.rentalsystem.entity.car.Insurance;
 import net.ubt.rentalsystem.entity.car.Utility;
@@ -21,6 +18,9 @@ import java.util.stream.Collectors;
         imports = {Collectors.class, OffsetDateTime.class}
 )
 public interface CarMapper {
+
+    @Mapping(source = "model.brand.name", target = "model.brand")
+    CarCalendarDto toCalendarDto(Car car);
 
     @Mapping(expression = "java(car.getUtilities().stream().map(u -> u.getName()).collect(Collectors.toSet()))", target = "utilities")
     @Mapping(source = "model.brand.name", target = "model.brand")

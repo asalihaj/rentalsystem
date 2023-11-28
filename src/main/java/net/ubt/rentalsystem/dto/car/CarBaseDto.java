@@ -2,6 +2,7 @@ package net.ubt.rentalsystem.dto.car;
 
 import lombok.Data;
 import net.ubt.rentalsystem.entity.car.Category;
+import net.ubt.rentalsystem.entity.car.Transmission;
 
 import java.util.Set;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class CarBaseDto {
     private Category category;
     private ModelDto model;
     private ColorDto color;
+    private Transmission transmission;
     private String fuelType;
     private Set<String> utilities;
     private Set<InsuranceDto> insurances;

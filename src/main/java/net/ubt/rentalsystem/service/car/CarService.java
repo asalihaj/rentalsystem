@@ -24,6 +24,13 @@ public class CarService {
     private final CarMapper carMapper;
     private final PriceCalculator priceCalculator;
 
+    public List<CarCalendarDto> getCalendarCarList() {
+        return carRepository.findAll()
+                .stream()
+                .map(carMapper::toCalendarDto)
+                .collect(Collectors.toList());
+    }
+
     public List<CarBaseDto> getAllCars() {
         return carRepository.findAll()
                 .stream()
