@@ -29,4 +29,4 @@ EXPOSE 8080
 COPY --from=build /app/target/rental-system.jar rental-system.jar
 
 # Set the entry point
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "rental-system.jar"]
