@@ -26,7 +26,7 @@ WORKDIR /app
 EXPOSE 8080
 
 # Copy the JAR file from the build stage to the runtime stage
-COPY --from=build /app/target/rental-system.jar rental-system.jar
+COPY --from=build /app/target/rental-system-1.jar rental-system.jar
 
 # Set the entry point
 ENTRYPOINT ["java", "-jar", "rental-system.jar"]
