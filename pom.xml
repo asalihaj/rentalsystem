@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>net.ubt</groupId>
 	<artifactId>rental-system</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>rental-system</name>
 	<description>Rental System</description>
 	<properties>
