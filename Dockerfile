@@ -1,29 +1,32 @@
 # Use an official Maven image as the build stage
-FROM maven:latest AS build
+FROM maven:3.8-openjdk-17 AS build
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Maven wrapper files (if available)
-COPY mvnw .
-COPY mvnw.cmd .
-COPY .mvn .mvn
-
-# Copy the project files
+# Copy the Maven project file to the working directory
 COPY pom.xml .
-COPY src src
 
-# Build the application using Maven
-RUN ./mvnw package
+# Download the project dependencies
+RUN mvn dependency:go-offline
 
-# Use the official OpenJDK image as the runtime stage
+# Copy the entire project to the working directory
+COPY . .
+
+# Build the Maven project
+RUN mvn package
+
+# Use an official OpenJDK image as the runtime stage
 FROM openjdk:17-jdk-slim
 
-# Expose the application's port
+# Set the working directory
+WORKDIR /app
+
+# Expose the port
 EXPOSE 8080
 
 # Copy the JAR file from the build stage to the runtime stage
-COPY --from=build /app/target/rental-system.jar rental-system.jar
+COPY --from=build /app/target/demo-1.jar app.jar
 
-# Set the entry point for the container
-ENTRYPOINT ["java", "-jar", "rental-system.jar"]
+# Set the entry point
+ENTRYPOINT ["java", "-jar", "app.jar"]
