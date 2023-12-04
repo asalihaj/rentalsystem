@@ -40,7 +40,7 @@ public class ApplicationConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("https://booking-nine-nu.vercel.app/");
+        config.addAllowedOrigin("*");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
 
